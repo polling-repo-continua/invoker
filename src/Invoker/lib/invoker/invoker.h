@@ -19,7 +19,7 @@ std::string IntToStr(int num);
 
 int StrToInt(std::string str);
 
-int BStrToInt(BSTR str);
+int StrToInt(BSTR str);
 
 std::string StrToLower(std::string str);
 

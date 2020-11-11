@@ -28,7 +28,7 @@ int StrToInt(std::string str) {
 	return atoi(num);
 }
 
-int BStrToInt(BSTR str) {
+int StrToInt(BSTR str) {
 	char num[STRING_BUFFER_SIZE] = "";
 	sprintf(num, "%ls", str);
 	return atoi(num);
@@ -465,7 +465,7 @@ bool WMIExecuteMethod(std::string obj, std::string method, std::string space) {
 							VariantInit(&results);
 							if (SUCCEEDED(objResults->Get(L"ReturnValue", 0, &results, NULL, 0)) && V_VT(&results) == VT_I4) {
 								Output("");
-								Output("HRESULT: " + GetErrorMessage(BStrToInt(V_BSTR(&results))));
+								Output("HRESULT: " + GetErrorMessage(StrToInt(V_BSTR(&results))));
 							}
 							VariantClear(&results);
 							objResults->Release();
@@ -532,7 +532,7 @@ bool WMIExecuteMethod(std::string obj, std::string method, std::string property,
 								BSTR bstrProperty = SysAllocString(std::wstring(property.begin(), property.end()).c_str());
 								VARIANT data;
 								VariantInit(&data);
-								if (IntToStr(StrToInt(value)).length() == value.length()) {
+								if (atoi(value.c_str())) {
 									V_VT(&data) = VT_I4;
 								}
 								else {
@@ -554,7 +554,7 @@ bool WMIExecuteMethod(std::string obj, std::string method, std::string property,
 										VariantInit(&results);
 										if (SUCCEEDED(objResults->Get(L"ReturnValue", 0, &results, NULL, 0)) && V_VT(&results) == VT_I4) {
 											Output("");
-											Output("HRESULT: " + GetErrorMessage(BStrToInt(V_BSTR(&results))));
+											Output("HRESULT: " + GetErrorMessage(StrToInt(V_BSTR(&results))));
 										}
 										VariantClear(&results);
 										objResults->Release();
